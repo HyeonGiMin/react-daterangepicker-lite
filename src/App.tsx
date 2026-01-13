@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import DateRangePicker, { type PresetRange } from './components/DateRangePicker';
+import { ko } from 'date-fns/locale';
+import DateRangePicker, { type PresetRange, type PresetDate } from './components/DateRangePicker';
 import type { DateRange } from './types';
 
 const presets: PresetRange[] = [
@@ -56,8 +57,60 @@ const presets: PresetRange[] = [
   }
 ];
 
+const singlePresets: PresetDate[] = [
+  { label: '오늘', date: () => new Date() },
+  {
+    label: '어제',
+    date: () => {
+      const d = new Date();
+      d.setDate(d.getDate() - 1);
+      return d;
+    }
+  },
+  {
+    label: '7일 전',
+    date: () => {
+      const d = new Date();
+      d.setDate(d.getDate() - 7);
+      return d;
+    }
+  },
+  {
+    label: '30일 전',
+    date: () => {
+      const d = new Date();
+      d.setDate(d.getDate() - 30);
+      return d;
+    }
+  }
+];
+
 const App = () => {
   const [range, setRange] = useState<DateRange>({ startDate: null, endDate: null });
+  const [rangeWithClear, setRangeWithClear] = useState<DateRange>({
+    startDate: new Date(2026, 0, 5),
+    endDate: new Date(2026, 0, 15)
+  });
+  const [rangeEditable, setRangeEditable] = useState<DateRange>({
+    startDate: new Date(2026, 0, 7),
+    endDate: new Date(2026, 0, 13)
+  });
+  const [rangeNonEditable, setRangeNonEditable] = useState<DateRange>({
+    startDate: new Date(2026, 0, 1),
+    endDate: new Date(2026, 0, 31)
+  });
+  const [singleEditable, setSingleEditable] = useState<DateRange>({
+    startDate: new Date(),
+    endDate: new Date()
+  });
+  const [rangeFromTo, setRangeFromTo] = useState<DateRange>({
+    startDate: new Date(2026, 0, 5),
+    endDate: new Date(2026, 0, 20)
+  });
+  const [rangeFromToApply, setRangeFromToApply] = useState<DateRange>({
+    startDate: new Date(2026, 0, 10),
+    endDate: new Date(2026, 0, 25)
+  });
 
   return (
     <main style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
@@ -80,12 +133,76 @@ const App = () => {
       </section>
 
       <section style={{ marginBottom: '3rem' }}>
+        <h2>With Clear Button</h2>
+        <DateRangePicker
+          value={rangeWithClear}
+          onChange={setRangeWithClear}
+          presetRanges={presets}
+          showClearButton
+          triggerWidth={320}
+          editable
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Range Picker (Non-Editable Trigger)</h2>
+        <DateRangePicker
+          value={rangeNonEditable}
+          onChange={setRangeNonEditable}
+          presetRanges={presets}
+          triggerWidth={320}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Range Picker (Editable Trigger)</h2>
+        <DateRangePicker
+          value={rangeEditable}
+          onChange={setRangeEditable}
+          presetRanges={presets}
+          editable
+          triggerWidth={320}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Range Picker (From-To Mode)</h2>
+        <p style={{ fontSize: '0.9rem', color: '#64748b' }}>
+          왼쪽 캘린더는 시작일, 오른쪽 캘린더는 종료일을 선택합니다.
+        </p>
+        <DateRangePicker
+          value={rangeFromTo}
+          onChange={setRangeFromTo}
+          presetRanges={presets}
+          separateCalendars
+          triggerWidth={320}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Range Picker (From-To Mode with Apply Button)</h2>
+        <p style={{ fontSize: '0.9rem', color: '#64748b' }}>
+          왼쪽 캘린더는 시작일, 오른쪽 캘린더는 종료일을 선택하고 Apply 버튼으로 확정합니다.
+        </p>
+        <DateRangePicker
+          value={rangeFromToApply}
+          onChange={setRangeFromToApply}
+          presetRanges={presets}
+          separateCalendars
+          autoApply={false}
+          triggerWidth={320}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
         <h2>Single Date Picker with Presets (Auto Apply)</h2>
         <DateRangePicker
           value={range}
           onChange={setRange}
           presetRanges={presets}
           singleDatePicker
+          presetDates={singlePresets}
+          showClearButton
         />
       </section>
 
@@ -108,6 +225,8 @@ const App = () => {
           presetRanges={presets}
           singleDatePicker
           showPresets={false}
+          presetDates={singlePresets}
+          showClearButton
         />
       </section>
 
@@ -131,6 +250,30 @@ const App = () => {
           presetRanges={presets}
           showPresets={false}
           autoApply={false}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Single Picker (Editable Trigger)</h2>
+        <DateRangePicker
+          value={singleEditable}
+          onChange={setSingleEditable}
+          singleDatePicker
+          showPresets={false}
+          presetDates={singlePresets}
+          editable
+          triggerWidth={240}
+        />
+      </section>
+
+      <section style={{ marginBottom: '3rem' }}>
+        <h2>Korean Locale Example (한국어)</h2>
+        <DateRangePicker
+          value={range}
+          onChange={setRange}
+          presetRanges={presets}
+          locale={ko}
+          displayFormat="yyyy-MM-dd"
         />
       </section>
 

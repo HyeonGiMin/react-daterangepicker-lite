@@ -4,7 +4,7 @@
 }
 
 .drp-trigger {
-  padding: 0.6rem 0.85rem;
+  padding: 0.6rem 2.5rem 0.6rem 0.85rem;
   border-radius: 0.5rem;
   border: 1px solid #cbd5e1;
   background: #fff;
@@ -14,6 +14,71 @@
     border-color 150ms ease,
     box-shadow 150ms ease,
     transform 120ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.drp-trigger-wrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.drp-input {
+  padding: 0.6rem 2.5rem 0.6rem 0.85rem;
+  border-radius: 0.5rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  font-size: 0.95rem;
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 120ms ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: left;
+}
+
+.drp-input:hover {
+  border-color: #94a3b8;
+}
+
+.drp-input:focus {
+  outline: none;
+  border-color: #94a3b8;
+}
+
+.drp-clear-btn {
+  position: absolute;
+  right: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  border: none;
+  background: #e2e8f0;
+  color: #64748b;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 120ms ease;
+  padding: 0;
+}
+
+.drp-clear-btn:hover {
+  background: #cbd5e1;
+  color: #334155;
+}
+
+.drp-clear-btn:active {
+  transform: translateY(-50%) scale(0.95);
 }
 
 .drp-trigger:hover {
@@ -48,6 +113,10 @@
   display: flex;
   flex: 1;
   width: 100%;
+}
+
+.drp-popover--single .drp-popover__body {
+  flex-direction: row;
 }
 
 .drp-top {
@@ -108,12 +177,201 @@
   min-width: 0;
 }
 
+.drp-calendar__label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  padding-left: 0.25rem;
+}
+
 .drp-calendar__header {
   font-weight: 600;
   font-size: 0.9rem;
   margin-bottom: 0.75rem;
-  text-align: center;
   white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.drp-calendar__title {
+  flex: 1;
+  text-align: center;
+}
+
+.drp-calendar__title--clickable {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 120ms ease;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: inherit;
+}
+
+.drp-calendar__title--clickable:hover {
+  background-color: #f1f5f9;
+}
+
+.drp-calendar__title--clickable:focus-visible {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+}
+
+.drp-calendar__picker {
+  flex: 1;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.drp-custom-select {
+  position: relative;
+  flex: 1;
+}
+
+.drp-custom-select__trigger {
+  width: 100%;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 120ms ease;
+  text-align: left;
+  font-family: inherit;
+}
+
+.drp-custom-select__trigger:hover {
+  border-color: #94a3b8;
+}
+
+.drp-custom-select__trigger:focus {
+  outline: none;
+  border-color: #0284c7;
+}
+
+.drp-custom-select__dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  min-width: 100%;
+  width: max-content;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+}
+
+.drp-custom-select__option {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  text-align: left;
+  transition: background-color 120ms ease;
+  font-family: inherit;
+  white-space: nowrap;
+}
+
+.drp-custom-select__option:hover {
+  background-color: #f1f5f9;
+}
+
+.drp-custom-select__option--active {
+  background-color: #0284c7;
+  color: #fff;
+}
+
+.drp-custom-select__option--active:hover {
+  background-color: #0369a1;
+}
+
+.drp-custom-select__option--disabled {
+  color: #cbd5e1;
+  cursor: not-allowed;
+  background: #f8fafc;
+}
+
+.drp-custom-select__option--disabled:hover {
+  background-color: #f8fafc;
+}
+
+.drp-calendar__select {
+  padding: 0.4rem 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  background-color: #fff;
+  cursor: pointer;
+  transition: border-color 120ms ease;
+  outline: none !important;
+}
+
+.drp-calendar__select:focus {
+  border-color: #0284c7;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.drp-calendar__select:focus-visible {
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(2, 132, 199, 0.2);
+}
+
+.drp-calendar__select:hover {
+  border-color: #94a3b8;
+}
+
+.drp-calendar__select:focus {
+  outline: 2px solid #0284c7;
+  outline-offset: 2px;
+  border-color: #0284c7;
+}
+
+.drp-nav-btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 0.35rem;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 120ms ease;
+}
+
+.drp-nav-btn:hover:not(:disabled) {
+  border-color: #94a3b8;
+  background: #f1f5f9;
+}
+
+.drp-nav-btn:disabled {
+  cursor: not-allowed;
+  color: #cbd5e1;
+  border-color: #e2e8f0;
+  background: #f8fafc;
+}
+
+.drp-nav-spacer {
+  width: 28px;
+  height: 28px;
 }
 
 .drp-calendar__weekdays,
@@ -121,6 +379,11 @@
   display: grid;
   grid-template-columns: repeat(7, minmax(32px, 1fr));
   gap: 2px;
+}
+
+.drp-calendar__grid {
+  grid-template-rows: repeat(6, minmax(32px, 1fr));
+  min-height: calc(6 * 32px + 5 * 2px);
 }
 
 .drp-calendar__weekdays span {
@@ -244,19 +507,18 @@
 }
 
 .drp--single .drp-popover__body {
-  flex-direction: column;
+  flex-direction: row;
   align-items: stretch;
 }
 
 .drp--single .drp-presets {
-  width: auto;
-  border-right: none;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 0.5rem;
-  flex-direction: row;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  justify-content: center;
+  width: 200px;
+  border-right: 1px solid #e2e8f0;
+  padding: 1rem;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 0.5rem;
+  justify-content: flex-start;
 }
 
 .drp--single .drp-preset {

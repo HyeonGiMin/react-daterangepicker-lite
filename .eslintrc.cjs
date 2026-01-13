@@ -14,7 +14,10 @@ module.exports = {
   },
   plugins: ['react-refresh', '@typescript-eslint'],
   rules: {
-    'react-refresh/only-export-components': 'warn'
+    'react-refresh/only-export-components': 'warn',
+    // Prefer TS-aware unused vars rule; allow underscore-prefixed args
+    'no-unused-vars': 'off',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }]
   },
-  ignorePatterns: ['dist', 'node_modules']
+  ignorePatterns: ['dist', 'node_modules', '**/*.d.ts']
 };
